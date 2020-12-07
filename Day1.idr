@@ -12,23 +12,31 @@ main = do
         Nothing => putStrLn "Failed to find a pair (parse error, or search error)" 
         Just (l, r) => do 
             putStrLn $ "Found pair (" ++ (show l) ++ "," ++ (show r) ++ "), multiple " ++ (show (l * r))
-
-
-
-export 
-search : List Int -> Int -> Bool 
-search [] _ = False
-search (y :: xs) x = case x == y of 
-    True => True
-    _ => search xs x
+    let tripres = expenses >>= findTriple
+    case tripres of 
+        Nothing => putStrLn "Failed to find a triple (parse error, or search error)" 
+        Just (a, b, c) => do 
+            putStrLn $ "Found triple (" ++ (show a) ++ "," ++ (show b) ++ "," ++ (show c) ++ "), multiple " ++ (show (a *b*c))
 
 export
-findPair : List Int -> Maybe (Int, Int)
-findPair [] = Nothing
-findPair (x :: xs) = let diff = 2020 - x in 
+findDiff : Int -> List Int -> Maybe (Int, Int)
+findDiff sum [] = Nothing
+findDiff sum (x :: xs) = let diff = sum - x in 
     -- We don't need to search backwards - we can always search forwards because if a previous 
     -- element was our pair, we would have found it. 
-    if search xs diff then 
+    if diff `elem` xs then 
         Just (x, diff)
     else 
-        findPair xs
+        findDiff sum xs
+            
+export
+findPair : List Int -> Maybe (Int, Int)
+findPair xs = findDiff 2020 xs
+
+export
+findTriple : List Int -> Maybe (Int, Int, Int)
+findTriple [] = Nothing 
+findTriple (x :: xs) = let diff = 2020 - x in 
+    case findDiff diff xs of 
+        Nothing => findTriple xs 
+        Just (b, c) => Just (x, b, c)

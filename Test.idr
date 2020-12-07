@@ -23,29 +23,10 @@ main = do
 day1 : IO ()
 day1 = do 
     putStrLn "Running Day 1 tests"
-    findWhereExists
-    findWhereNotExists
     findAPair
-
-findWhereExists : IO () 
-findWhereExists = do
-    putStrLn "Test: findWhereExists"
-    let haystack = fromList [25, 4, 53, 60, 2, 43, 222, 198, 10, 3]
-    let needle : Int= 4
-    let found = Day1.search haystack needle
-    assert True found
-
-findWhereNotExists : IO () 
-findWhereNotExists = do
-    putStrLn "Test: findWhereNotExists"
-    let haystack = fromList [25, 4, 53, 60, 2, 43, 222, 198, 10, 3]
-    let needle : Int = 409
-    let found = Day1.search haystack needle
-    assert False found
-
 
 findAPair : IO () 
 findAPair = do 
-    let haystack = fromList [25, 4, 53, 60, 2, 43, 222, 198, 10, 3, 2016]
+    let haystack =  [25, 4, 53, 60, 2, 43, 222, 198, 10, 3, 2016]
     let res = findPair haystack
     assert (Just (4, 2016)) res
