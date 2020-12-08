@@ -7,7 +7,7 @@ test: build/exec/Test
 	build/exec/Test
 
 build/exec/%: %.idr
-	idris2 $< -o $*
+	idris2 --package contrib $< -o $*
 
 .PHONY: clean
 clean:
