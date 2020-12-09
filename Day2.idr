@@ -10,9 +10,6 @@ import public Text.Parser.Core
 import public Text.Parser
 import Util.Parsing
 
-countIs : (Eq a, Foldable f) => a -> f a -> Integer 
-countIs c s = foldl (\acc, e => if e == c then acc + 1 else acc) 0 s
-
 record PasswordEntry where
    constructor Entry
    constraint : (Integer, Integer)

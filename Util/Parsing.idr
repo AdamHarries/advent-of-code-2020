@@ -17,3 +17,7 @@ readAsStrings fname = do
     pure $ case contents of
         Just c => lines c
         Nothing => []
+
+export 
+countIs : (Eq a, Foldable f) => a -> f a -> Integer 
+countIs c s = foldl (\acc, e => if e == c then acc + 1 else acc) 0 s
