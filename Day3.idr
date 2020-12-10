@@ -53,6 +53,9 @@ everyOther (a :: b :: xs) = a :: (everyOther xs)
 traverse : List (Fin len, Vect len MapSpace) -> List MapSpace
 traverse m = map (\(ix, row) => index ix row ) m
 
+mapType : Type
+mapType = List (Vect len MapSpace)
+
 findSolution : {lenMo: _} -> {len: Nat} -> List (Vect len MapSpace) -> (Nat, Bool) -> {auto prf: len = S lenMo} -> Integer 
 findSolution m (routeR, routeD)  = do 
     let rows = length m
